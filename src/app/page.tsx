@@ -1,6 +1,10 @@
 import { prisma } from "@/lib/db";
+import { useTRPC } from "@/trpc/routers/client";
 
 const Page = async ()=>{
+
+  const trpc = useTRPC();
+  trpc.createAI.queryOptions({text:'hello!!'})
 
   const user = await prisma.user.findMany();
 
