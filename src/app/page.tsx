@@ -1,17 +1,17 @@
-import { prisma } from "@/lib/db";
-import { useTRPC } from "@/trpc/routers/client";
+"use client";
 
-const Page = async ()=>{
+import { useTRPC } from "@/trpc/routers/client";
+import { useQuery } from "@tanstack/react-query";
+
+const Page = ()=>{
 
   const trpc = useTRPC();
-  trpc.createAI.queryOptions({text:'hello!!'})
-
-  const user = await prisma.user.findMany();
+  const {data} = useQuery(trpc.createAI.queryOptions({text:'hello!!'}))
 
 
   return (
     <div className="font-bold text-rose-500">
-      {JSON.stringify(user,null,2)}
+      {JSON.stringify(data)}
     </div>
   )
 }
