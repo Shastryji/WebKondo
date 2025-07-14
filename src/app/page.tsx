@@ -1,11 +1,10 @@
-import { useTRPC } from "@/trpc/routers/client";
-import { useQuery } from "@tanstack/react-query";
+import { caller } from "@/trpc/server";
 
-const Page = ()=>{
+const Page = async()=>{
 
-  const trpc = useTRPC();
-  const {data} = useQuery(trpc.createAI.queryOptions({text:'hello!!'}))
-
+  const data = await caller.createAI({
+    text: "Hello, how are you?"
+  });
 
   return (
     <div className="font-bold text-rose-500">
