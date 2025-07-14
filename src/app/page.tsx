@@ -1,5 +1,3 @@
-"use client";
-
 import { useTRPC } from "@/trpc/routers/client";
 import { useQuery } from "@tanstack/react-query";
 
