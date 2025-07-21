@@ -23,11 +23,18 @@ function getQueryClient() {
   return browserQueryClient;
 }
 function getUrl() {
-  const base = (() => {
-    if (typeof window !== 'undefined') return '';
-    return process.env.NEXT_PUBLIC_APP_URL;
-  })();
-  return `${base}/api/trpc`;
+  if (typeof window !== 'undefined') {
+    // browser should use relative url
+    return '/api/trpc';
+  }
+  
+  // server should use absolute url
+  if (process.env.NEXT_PUBLIC_APP_URL) {
+    return `${process.env.NEXT_PUBLIC_APP_URL}/api/trpc`;
+  }
+  
+  // fallback to localhost
+  return `http://localhost:${process.env.PORT ?? 3000}/api/trpc`;
 }
 export function TRPCReactProvider(
   props: Readonly<{
